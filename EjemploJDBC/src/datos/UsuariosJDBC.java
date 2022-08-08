@@ -1,6 +1,6 @@
 package datos;
 
-import domain.Persona;
+import domain.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,78 +9,82 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Clase que contiene los metodo SELECT, INSERT UPDATE, DELETE para ña tabla de PERSONAS en MYSQL*/
-
-
-public class PersonasJDBC {
-
+public class UsuariosJDBC {
     private Connection userConn;
+    private final String SQL_INSERT = "INSERT INTO usuario(usuario, password) VALUES(?,?)";
+    private final String SQL_UPDATE = "UPDATE usuario SET usuario=?, password=? WHERE id_usuario=?";
+    private final String SQL_DELETE = "DELETE FROM usuario WHERE  id_usuario=?";
+    private final String SQL_SELECT = "SELECT *  FROM usuario ORDER BY id_usuario";
 
-    private final String SQL_INSERT = "INSERT INTO persona(nombre, apellido) VALUES(?,?)";
-    private final String SQL_UPDATE = "UPDATE persona SET nombre=?, apellido=? WHERE id_persona=?";
-    private final String SQL_DELETE = "DELETE FROM persona WHERE  id_persona=?";
-    private final String SQL_SELECT = "SELECT *  FROM persona ORDER BY id_persona";
+    public UsuariosJDBC() {
+    }
 
+    public UsuariosJDBC(Connection userConn) {
+        this.userConn = userConn;
+    }
 
-    public int insert(String nombre, String apellido){
+    public int insert(String usuario, String password) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs;
         int rows=0;
 
         try {
-            conn=Conexion.getConnection();
+            conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             int index =1;
-            stmt.setString(index++,nombre);
-            stmt.setString(index++,apellido);
+            stmt.setString(index++,usuario);
+            stmt.setString(index++,password);
             System.out.println("Ejecutando query: "+SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados: "+rows);
-        } catch (SQLException e) {
-            e.printStackTrace();
+
         }finally {
             Conexion.close(stmt);
-            Conexion.close(conn);
+            if(this.userConn==null){
+                Conexion.close(conn);
+            }
+
         }
         return rows;
     }
 
-    public int update(int id_persona,String nombre,String apellido){
+    public int update(int id_usuario,String usuario,String password){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs;
         int rows = 0;
         try {
-            conn = Conexion.getConnection();
+            conn = (this.userConn!=null)?this.userConn:Conexion.getConnection();
             System.out.println("Ejecutando query: "+ SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
             int index = 1;
-            stmt.setString(index++,nombre);
-            stmt.setString(index++,apellido);
-            stmt.setInt(index,id_persona);
+            stmt.setString(index++,usuario);
+            stmt.setString(index++,password);
+            stmt.setInt(index,id_usuario);
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizados: "+rows);
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             Conexion.close(stmt);
-            Conexion.close(conn);
+            if(this.userConn==null){
+                Conexion.close(conn);
+            }
         }
         return rows;
     }
 
-    public int delete(int id_persona){
+    public int delete(int id_usuario){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs;
         int rows = 0;
         try {
-            conn= Conexion.getConnection();
+            conn= (this.userConn!=null)?this.userConn:Conexion.getConnection();
             System.out.println("Ejecutando query: "+SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1,id_persona);
+            stmt.setInt(1,id_usuario);
             stmt.executeUpdate();
             ++rows;
             System.out.println("Registro eliminados: "+rows);
@@ -88,21 +92,23 @@ public class PersonasJDBC {
             e.printStackTrace();
         }finally {
             Conexion.close(stmt);
-            Conexion.close(conn);
+            if(this.userConn==null){
+                Conexion.close(conn);
+            }
         }
         return rows;
 
     }
 
-    public List<Persona> select(){
+    public List<Usuario> select(){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs= null;
-        Persona persona;
-        List<Persona> personas= new ArrayList<>();
+        Usuario usuario = null;
+        List<Usuario> personas= new ArrayList<>();
         int rows = 0;
         try {
-            conn= Conexion.getConnection();
+            conn= (this.userConn!=null)?this.userConn:Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()){
@@ -110,23 +116,23 @@ public class PersonasJDBC {
                 String nombre = rs.getString(2);
                 String apellido = rs.getString(3);
 
-                persona = new Persona();
-                persona.setId_persona(id_persona);
-                persona.setNombre(nombre);
-                persona.setApellido(apellido);
-                personas.add(persona);
+                usuario = new Usuario();
+                usuario.setId_usuario(id_persona);
+                usuario.setUsuario(nombre);
+                usuario.setPassword(apellido);
+                personas.add(usuario);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             Conexion.close(rs);
             Conexion.close(stmt);
-            Conexion.close(conn);
+            if(this.userConn==null){
+                Conexion.close(conn);
+            }
 
         }
         return personas;
 
     }
-
-
 }
