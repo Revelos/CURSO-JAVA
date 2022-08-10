@@ -1,4 +1,4 @@
-package datos;
+package usuarios.jdbc;
 
 import java.sql.*;
 
@@ -12,14 +12,15 @@ public class Conexion {
     //Para que no haya problemas al obtener la conexion de manera cocurrente
     //se usa la palabara syncronized
     public static synchronized Connection getConnection() throws SQLException {
-        if(driver ==null){
-            try{
-                Class jdbcDriverClass = Class.forName(JDBC_DRIVER);
-                driver = (Driver) jdbcDriverClass.newInstance();
-            }catch (Exception e){
-                System.out.println("Fallo en cargar el driver JDBC");
-                e.printStackTrace();
+
+        try {
+            if(driver==null){
+                Class driverManager = Class.forName(JDBC_DRIVER);
+                driver = (Driver) driverManager.newInstance();
             }
+        } catch (Exception e) {
+            System.out.println("Fallo en cargar el driver JDBC");
+            e.printStackTrace();
         }
         return DriverManager.getConnection(JDBC_URL,JDBC_USER,JDBC_PASS);
     }
