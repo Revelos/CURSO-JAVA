@@ -10,5 +10,6 @@ public class EjemploDelete {
 
         repositorio.eliminar(4L);
         System.out.println("Eliminado con exito");
+
     }
 }
