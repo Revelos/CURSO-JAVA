@@ -18,8 +18,10 @@ public class EjemploJdbc {
 
         Servicio servicio = new CatalogoServicio();
         System.out.println("============== LISTAR ===============");
-        servicio.listar().forEach(System.out::println);
-        Categoria categoria = new Categoria();
+
+        System.out.println(servicio.porId(2L));
+        //servicio.listar().forEach(System.out::println);
+        /*Categoria categoria = new Categoria();
         categoria.setNombre("Iluminacion");
 
         Producto producto = new Producto();
@@ -29,6 +31,6 @@ public class EjemploJdbc {
         producto.setSku("asdfghjklñ123");
         servicio.guardarProductoConCategoria(producto,categoria);
         System.out.println("Producto guardado con exito: "+ producto.getId());
-        servicio.listar().forEach(System.out::println);
+        servicio.listar().forEach(System.out::println);*/
     }
 }

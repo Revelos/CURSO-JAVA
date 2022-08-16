@@ -18,11 +18,6 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellido) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-    }
-
     public Cliente(Long id, String nombre, String apellido, String formaPago) {
         this.id = id;
         this.nombre = nombre;
