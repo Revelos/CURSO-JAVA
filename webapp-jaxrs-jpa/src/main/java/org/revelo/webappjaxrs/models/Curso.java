@@ -13,8 +13,10 @@ public class Curso {
 
     private String nombre;
     private String descripcion;
-    private String instructor;
     private Double duracion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Instructor instructor;
 
 
     public Curso() {
@@ -48,19 +50,19 @@ public class Curso {
         this.descripcion = descripcion;
     }
 
-    public String getInstructor() {
-        return instructor;
-    }
-
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
-    }
-
     public Double getDuracion() {
         return duracion;
     }
 
     public void setDuracion(Double duracion) {
         this.duracion = duracion;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 }

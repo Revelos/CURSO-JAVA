@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="webapp-jaxrs.war">
+    <root id="archive" name="webapp-jaxrs-jpa.war">
       <element id="artifact" artifact-name="webapp-jaxrs:war exploded" />
     </root>
   </artifact>

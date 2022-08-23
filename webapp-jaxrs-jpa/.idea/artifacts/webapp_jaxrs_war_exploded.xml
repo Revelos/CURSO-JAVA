@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="webapp-jaxrs:war exploded">
-    <output-path>$PROJECT_DIR$/target/webapp-jaxrs</output-path>
+    <output-path>$PROJECT_DIR$/target/webapp-jaxrs-jpa</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -33,10 +33,21 @@
           <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:4.0.0" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.30" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.19.4" />
+          <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-jackson2-provider:6.1.0.Final" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.12.6" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.6.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.6" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:jakarta:2.12.6" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:jakarta:2.12.6" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:jakarta:2.12.6" />
+          <element id="library" level="project" name="Maven: com.github.java-json-tools:json-patch:1.13" />
+          <element id="library" level="project" name="Maven: com.github.java-json-tools:msg-simple:1.2" />
+          <element id="library" level="project" name="Maven: com.github.java-json-tools:btf:1.3" />
+          <element id="library" level="project" name="Maven: com.github.java-json-tools:jackson-coreutils:2.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/webapp-jaxrs/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/webapp-jaxrs-jpa/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="webapp-jaxrs/web/Web" />
     </root>
